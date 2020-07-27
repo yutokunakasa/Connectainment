@@ -1,0 +1,17 @@
+<h1>共有動画登録ページ</h1>
+<h3>動画登録</h3>
+<%= form_for @movie do |f| %>
+	<%= f.label :動画タイトル %>
+	<%= f.text_field :title %>
+
+	<%= f.label :動画url %>
+	<%= f.text_field :movie_url_id %>
+
+	<%= f.label :概要欄 %>
+	<%= f.text_field :introduction %>
+
+	<%= f.label :紹介者コメント %>
+	<%= f.text_field :introducer_comment %>
+
+	<%= f.submit "共有する" %>
+<% end %>

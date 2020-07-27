@@ -1,0 +1,21 @@
+<h1>ユーザー情報編集</h1>
+<%= form_for(@user) do |f|%>
+  <div class="">
+  	<%= f.label :UserImage %>
+  	<%=attachment_image_tag @user, :icon_image, :fill, 60, 60, class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg"%>
+    <%= f.attachment_field :icon_image, placeholder: "プロフィール画像", class: "user-edit-form" %>
+  </div>
+
+  <div class="">
+  	<%= f.label :ニックネーム %>
+  	<%= f.text_field :nickname %>
+  </div>
+
+  <div class="">
+  	<%= f.label :自己紹介 %>
+  	<%= f.text_field :introduction %>
+  </div>
+
+  <%= f.submit "編集する", class:"btn btn-primary btn-md btn-base-1"%>
+
+<% end %>
