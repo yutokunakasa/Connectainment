@@ -1,0 +1,15 @@
+<h1>動画一覧</h1>
+<table>
+	<thead>
+		<tr>
+			<th>タイトル</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%= @movies.each do |f| %>
+		<tr>
+			<td><%= link_to f.title, movie_path(f) %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

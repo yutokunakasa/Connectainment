@@ -20,6 +20,14 @@ class MoviesController < ApplicationController
 		@movie = Movie.find(params[:id])
     end
 
+    def index
+    	@movies = Movie.all
+    end
+
+    def users_movie_index
+    	@movies = Movie.where(user_id: current_user)
+    end
+
     def edit
     	@movie = Movie.find(params[:id])
     end

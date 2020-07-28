@@ -1,0 +1,17 @@
+<h1>紹介動画一覧</h1>
+<table>
+	<thead>
+		<tr>
+			<th>タイトル</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @movies.each do |f| %>
+		<tr>
+			<td><%= link_to f.title, movie_path(f) %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+<%=link_to "戻る", user_path(current_user) %>

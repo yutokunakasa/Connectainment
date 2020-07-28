@@ -1,2 +1,9 @@
 <h1>showページ予定</h1>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @movie.movie_url_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h3><%= @movie.title %></h3>
+<h2>概要</h2>
+<%= @movie.introduction %>
+<h3>共有者コメント</h3>
+<%= @movie.introducer_comment%>
+
+<%= link_to "マイページへ戻る", user_path(current_user) %>
