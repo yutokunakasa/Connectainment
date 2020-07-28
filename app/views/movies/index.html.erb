@@ -6,7 +6,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<%= @movies.each do |f| %>
+		<% @movies.each do |f| %>
 		<tr>
 			<td><%= link_to f.title, movie_path(f) %></td>
 		</tr>
