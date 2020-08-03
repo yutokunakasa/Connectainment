@@ -12,6 +12,12 @@
   <body>
     <header>
       <% if user_signed_in? %>
+      <li>
+        <%= search_form_for @search do |f|%>
+          <%= f.search_field :title_cont, class: 'search', placeholder: '動画を検索' %>
+          <%= f.submit "検索" %>
+        <% end %>
+      </li>
       <li><%= link_to 'top', root_path %></li>
       <li><%= link_to 'マイページ', user_path(current_user.id) %></li>
       <li><%= link_to 'コンテンツ', movies_path %></li>

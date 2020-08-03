@@ -1,4 +1,4 @@
-<h1>マイページ</h1>
+<h1>ユーザーページ</h1>
 <h3>登録情報</h3>
 <table>
 	<tr>
@@ -15,7 +15,11 @@
 		<td><%= @user.email %></td>
 	</tr>
 </table>
+<%= render 'follow_form' %>
+<%= render 'stats' %>
+<%= link_to "紹介した動画", user_users_movie_index_path(@user.id) %>
+<%= link_to "お気に入り動画", user_users_movie_favorites_path(@user.id) %>
+<% if @user == current_user %>
 <%= link_to "編集", edit_user_path(@user)%>
 <%= link_to "動画を共有する", new_movie_path%>
-
-<%= link_to "紹介した動画", users_movie_index_path %>
+<% end %>

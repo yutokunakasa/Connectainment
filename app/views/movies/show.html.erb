@@ -1,9 +1,82 @@
-<h1>showページ予定</h1>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @movie.movie_url_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h3><%= @movie.title %></h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @movie.movie_url_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h4>
+	<% if current_user == @movie.user %>
+	  あなたの共有動画です
+	<% else %>
+	  <%= link_to @movie.user.nickname, user_path(@movie.user) %>さんが共有
+	<% end %>
+</h4>
 <h2>概要</h2>
 <%= @movie.introduction %>
 <h3>共有者コメント</h3>
 <%= @movie.introducer_comment%>
+
+<li>
+	<i class="fa fa-calendar"></i>
+	<%= @movie.created_at.strftime('%Y/%m/%d') %>
+</li>
+<% if current_user == @movie.user %>
+  <li>
+  	<%= @movie.favorites.count %>　いいね
+  </li>
+<% else %>
+	<% if @movie.favorited_by?(current_user) %>
+	<li>
+		<%= link_to movie_favorite_path(@movie), method: :delete do %>
+		  <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
+		  <%= @movie.favorites.count %> いいね
+		<% end %>
+	</li>
+	<% else %>
+	<li>
+		<%= link_to movie_favorites_path(@movie), method: :post do %>
+		  <i class="fa fa-heart_o" aria-hidden="true"></i>
+		  <%= @movie.favorites.count %> いいね
+		<% end %>
+	</li>
+	<% end %>
+<% end %>
+
+<div class="comment-list bt style-2" id = "comments">
+	<div class="float-wrapper">
+		<h2 class="comment-count">
+			<%= @movie.post_comments.count %>　件コメント
+		</h2>
+	</div>
+	<ol>
+		<% @movie.post_comments.each do |post_comment| %>
+			<li class="comment">
+				<div class="comment-body bb">
+					<div class="comment-text">
+						<div class="comment-author clearfix">
+								<%=link_to post_comment.user.nickname, user_path(post_comment.user) %>
+							</a>
+							<span class="comment-date">
+								<%= post_comment.created_at.strftime('%Y/%m/%d') %>
+							</span>
+						</div>
+						<div class="comment-entry">
+							<%= post_comment.comment %>
+						</div>
+						<% if post_comment.user == current_user %>
+						  <div>
+						  	<%= link_to "削除", movie_post_comment_path(post_comment.movie, post_comment), method: :delete, class: "btn btn-danger pull-right "%>
+						  </div>
+						<% end %>
+					</div>
+				</div>
+			</li>
+		<% end %>
+	</ol>
+
+	<%= form_for [@movie, @post_comment] do |f| %>
+	  <div class="row">
+	  	<div class="col-sm-12">
+	  		<%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
+	  	</div>
+	  </div>
+	  <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+	<% end %>
 
 <%= link_to "マイページへ戻る", user_path(current_user) %>

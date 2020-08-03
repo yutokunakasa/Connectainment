@@ -1,0 +1,21 @@
+<h1><%= @user.nickname %> さんのお気に入り動画　</h1>
+  <table>
+	<thead>
+		<tr>
+			<th>タイトル</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @favorites.each do |f| %>
+		<tr>
+			<td><%= link_to f.movie.title, movie_path(f.movie_id) %></td>
+			<td>
+				<td>
+				<%= link_to image_tag("https://img.youtube.com/vi/#{f.movie.movie_url_id}/hqdefault.jpg"), movie_path(f.movie_id) %>
+			</td>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

@@ -18,14 +18,18 @@ class MoviesController < ApplicationController
 
 	def show
 		@movie = Movie.find(params[:id])
+		@post_comment = PostComment.new
     end
 
     def index
-    	@movies = Movie.all
+    	# @movies = Movie.all
+    	@search = Movie.ransack(params[:q])
+    	@movies = @search.result
     end
 
     def users_movie_index
-    	@movies = Movie.where(user_id: current_user)
+    	@user = User.find(params[:user_id])
+    	@movies = Movie.where(user_id: @user.id)
     end
 
     def edit

@@ -3,12 +3,16 @@
 	<thead>
 		<tr>
 			<th>タイトル</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
 		<% @movies.each do |f| %>
 		<tr>
 			<td><%= link_to f.title, movie_path(f) %></td>
+			<td>
+				<%= link_to image_tag("https://img.youtube.com/vi/#{f.movie_url_id}/hqdefault.jpg"), movie_path(f) %>
+			</td>
 		</tr>
 		<% end %>
 	</tbody>
