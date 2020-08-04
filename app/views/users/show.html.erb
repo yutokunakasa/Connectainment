@@ -19,7 +19,9 @@
 <%= render 'stats' %>
 <%= link_to "紹介した動画", user_users_movie_index_path(@user.id) %>
 <%= link_to "お気に入り動画", user_users_movie_favorites_path(@user.id) %>
+<%= link_to "つぶやき", user_user_tweets_path(@user.id)%>
 <% if @user == current_user %>
-<%= link_to "編集", edit_user_path(@user)%>
-<%= link_to "動画を共有する", new_movie_path%>
+<%= link_to "編集", edit_user_path(@user) %>
+<%= link_to "動画を共有する", new_movie_path %>
+<%= link_to "つぶやく", new_tweet_path %>
 <% end %>

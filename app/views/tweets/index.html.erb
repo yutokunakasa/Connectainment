@@ -1,0 +1,22 @@
+<h1>フォローしている人のつぶやき</h1>
+<table>
+	<thead>
+		<tr>
+			<th></th>
+			<th></th>
+			<th>本文</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @tweets.reverse_each do |f| %>
+			<tr>
+				<td><%= link_to attachment_image_tag f.user , :icon_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %></td>
+				<td><%= f.user.nickname %></td>
+				<td><%= f.text %></td>
+				<td><%= link_to "リプライを送る", tweet_path(f)%></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+

@@ -1,4 +1,7 @@
-<h1>紹介動画一覧</h1>
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %></p>
+<% end %>
+<h1>フォローしている人の共有動画</h1>
 <table>
 	<thead>
 		<tr>
@@ -10,14 +13,10 @@
 		<% @movies.reverse_each do |f| %>
 		<tr>
 			<td><%= link_to f.title, movie_path(f) %></td>
-		</tr>
-		<tr>
 			<td>
 				<%= link_to image_tag("https://img.youtube.com/vi/#{f.movie_url_id}/hqdefault.jpg"), movie_path(f) %>
-				<%= link_to "削除", movie_path(f), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn btn-danger pull-right "%>
 			</td>
 		</tr>
 		<% end %>
 	</tbody>
 </table>
-<%=link_to "戻る", user_path(current_user) %>

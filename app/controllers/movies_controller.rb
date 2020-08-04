@@ -22,7 +22,6 @@ class MoviesController < ApplicationController
     end
 
     def index
-    	# @movies = Movie.all
     	@search = Movie.ransack(params[:q])
     	@movies = @search.result
     end
@@ -30,6 +29,20 @@ class MoviesController < ApplicationController
     def users_movie_index
     	@user = User.find(params[:user_id])
     	@movies = Movie.where(user_id: @user.id)
+    end
+
+    def following_user_movies
+    	@user = User.find(current_user.id)
+    	@users = @user.followings
+    	@movies = []
+    	if @users.present?
+    		@users.each do |user|
+    			following_user_movies = Movie.where(user_id: user.id)
+    			@movies.concat(following_user_movies)
+    		end
+            current_user_movies = Movie.where(user_id: current_user.id)
+            @movies.concat(current_user_movies)
+    	end
     end
 
     def edit
@@ -43,6 +56,12 @@ class MoviesController < ApplicationController
     	else
     		render edit_movie_path(current_movie)
     	end
+    end
+
+    def destroy
+    	@movie = Movie.find(params[:id])
+    	@movie.destroy
+    	redirect_to user_users_movie_index_path(current_user)
     end
 
 	private

@@ -21,9 +21,16 @@
       <li><%= link_to 'top', root_path %></li>
       <li><%= link_to 'マイページ', user_path(current_user.id) %></li>
       <li><%= link_to 'コンテンツ', movies_path %></li>
-      <li><%= link_to 'ツイート'%></li>
+      <li><%= link_to 'お友達の共有動画', user_following_user_movies_path(current_user.id) %></li>
+      <li><%= link_to 'ツイート', tweets_path %></li>
       <li><%= link_to 'ログアウト' , destroy_user_session_path, method: :delete %></li>
       <% else %>
+      <li>
+        <%= search_form_for @search do |f|%>
+          <%= f.search_field :title_cont, class: 'search', placeholder: '動画を検索' %>
+          <%= f.submit "検索" %>
+        <% end %>
+      </li>
       <li><%= link_to 'top', root_path %></li>
       <li><%= link_to 'about', about_path %></li>
       <li><%= link_to 'コンテンツ'%></li>

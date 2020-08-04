@@ -1,0 +1,6 @@
+<h1>tweetページ</h1>
+<%= form_for @tweet do |f| %>
+    <%= f.label :tweet %>
+	<%= f.text_field :text %>
+    <%= f.submit "つぶやく" %>
+<% end %>

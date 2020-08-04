@@ -1,0 +1,24 @@
+<h1>ツイート一覧</h1>
+<table>
+	<thead>
+		<tr>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>	
+		<% @tweets.reverse_each do |f| %>
+				<tr>
+					<td><%= f.user.nickname %></td>
+					<td><%= f.text %></td>
+					<td>
+						<%= link_to "削除", tweet_path(f), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn btn-danger pull-right "%>
+					</td>
+				</tr>
+		<% end %>
+	</tbody>
+</table>
+
+
+<%=link_to "戻る", user_path(@user) %>
