@@ -1,17 +1,25 @@
 class TweetsController < ApplicationController
+	before_action :authenticate_user!
 	def index
+		@tweet = Tweet.new
 		@user = current_user
+		@tweet_all = Tweet.includes(:user)
 		@users = @user.followings
-		@tweets = []
-		if @users.present?
-    		@users.each do |user|
-    			following_user_tweets = Tweet.where(user_id: user.id)
+		@tweets = @tweet_all.where(user_id: @users).order(created_at: :desc).page(params[:page]).per(20)
 
-    			@tweets.concat(following_user_tweets)
-    		end
-    		current_user_tweets = Tweet.where(user_id: current_user.id)
-    		@tweets.concat(current_user_tweets)
-    	end
+		# @tweets = []
+		# if @users.present?
+  #   		@users.each do |user|
+  #   			following_user_tweets = Tweet.where(user_id: user.id)
+  #   			@tweets.concat(following_user_tweets)
+  #   			current_user_tweets = Tweet.where(user_id: current_user.id)
+  #   		    @tweets.concat(current_user_tweets)
+  #   		end
+  #   	else
+  #   		current_user_tweets = Tweet.where(user_id: current_user.id)
+  #   		@tweets.concat(current_user_tweets)
+  #   	end
+        # 学習のためにコメントアウトで残してあります
 
 	end
 

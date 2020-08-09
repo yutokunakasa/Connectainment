@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get "users_movie_index" => "movies#users_movie_index"
     get "following_user_movies" => "movies#following_user_movies"
     get "user_tweets" => "tweets#user_tweets"
+    get "admin/users" => "admin/users#index"
     member do
       get :following, :followers
     end
@@ -19,6 +20,12 @@ Rails.application.routes.draw do
   resources :tweets do
     resources :replies, only: [:create, :destroy]
   end
+  namespace :admin do
+    resources :users
+    resources :tweets
+  end
+
+  resources :informations
 
   get "top" => "homes#top"
   get "about" => "homes#about"

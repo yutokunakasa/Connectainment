@@ -1,27 +1,44 @@
-<h1>ユーザーページ</h1>
-<h3>登録情報</h3>
-<table>
-	<tr>
-		<%= attachment_image_tag @user, :icon_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
-		<th>ニックネーム</th>
-		<td><%= @user.nickname %></td>
-	</tr>
-	<tr>
-		<th>自己紹介</th>
-		<td><%= @user.introduction%></td>
-	</tr>
-	<tr>
-		<th>email</th>
-		<td><%= @user.email %></td>
-	</tr>
-</table>
-<%= render 'follow_form' %>
-<%= render 'stats' %>
-<%= link_to "紹介した動画", user_users_movie_index_path(@user.id) %>
-<%= link_to "お気に入り動画", user_users_movie_favorites_path(@user.id) %>
-<%= link_to "つぶやき", user_user_tweets_path(@user.id)%>
-<% if @user == current_user %>
-<%= link_to "編集", edit_user_path(@user) %>
-<%= link_to "動画を共有する", new_movie_path %>
-<%= link_to "つぶやく", new_tweet_path %>
-<% end %>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-2"></div>
+		<div class="col-lg-3">
+			<% if @user.admin? %>
+			  <h1>管理者画面</h1>
+			  <h3>管理者コマンド</h3>
+			  <%= link_to "ユーザー一覧", admin_users_path %>
+			  <%= link_to "ツイート一覧", admin_tweets_path %>
+			<% else %>
+			  <h3>登録情報</h3>
+				<%= attachment_image_tag @user, :icon_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+				<h4>ニックネーム</h4>
+				<%= @user.nickname %>
+				<%= render 'follow_form' %>
+				<%= render 'stats' %>
+				<div>
+					<%= link_to "紹介した動画", user_users_movie_index_path(@user.id) %>
+					<%= link_to "お気に入り動画", user_users_movie_favorites_path(@user.id) %>
+					<%= link_to "つぶやき", user_user_tweets_path(@user.id)%>
+				</div>
+				<div>
+					<% if @user == current_user %>
+					    <%= link_to "編集", edit_user_path(@user) %>
+						<%= link_to "動画を共有する", new_movie_path %>
+						<%= link_to "つぶやく", tweets_path %>
+				    <% end %>
+				</div>
+			<% end %>
+		</div>
+
+        <% if current_user.admin? %>
+        <% else %>
+		<div class="user-introduction col-lg-7">
+			<h4>自己紹介</h4>
+			<div class="user-introduction-box">
+				<div class="user-introduction-text">
+					<%= @user.introduction%>
+				</div>
+			</div>
+		</div>
+		<% end%>
+	</div>
+</div>

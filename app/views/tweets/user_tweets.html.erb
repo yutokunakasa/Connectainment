@@ -1,24 +1,37 @@
-<h1>ツイート一覧</h1>
-<table>
-	<thead>
-		<tr>
-			<th></th>
-			<th></th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>	
-		<% @tweets.reverse_each do |f| %>
-				<tr>
-					<td><%= f.user.nickname %></td>
-					<td><%= f.text %></td>
-					<td>
-						<%= link_to "削除", tweet_path(f), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn btn-danger pull-right "%>
-					</td>
-				</tr>
+<div class="container">
+	<div class="row">
+		<% if current_user != @user%>
+			<h1><%=@user.nickname%>さんのツイート一覧</h1>
+		<% else %>
+		    <h1>あなたのツイート一覧</h1>
 		<% end %>
-	</tbody>
-</table>
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>	
+				<% @tweets.reverse_each do |f| %>
+						<tr>
+							<td><%= f.created_at.strftime('%Y/%m/%d/%H:%M')%></td>
+							<td><%= f.text %></td>
+							<td>
+								<% if current_user == @user %>
+									<%= link_to "削除", tweet_path(f), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn btn-danger pull-right "%>
+								<% else %>
+									<%= link_to "リプライを送る", tweet_path(f)%>
+								<% end %>
+							</td>
+						</tr>
+				<% end %>
+			</tbody>
+		</table>
 
 
-<%=link_to "戻る", user_path(@user) %>
+		<%=link_to "戻る", user_path(@user) %>
+    </div>
+</div>

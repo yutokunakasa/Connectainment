@@ -1,16 +1,23 @@
-<h1>tweet showページ</h1>
-<% if current_user != @tweet.user %>
-  <h3>
-  	<%= @tweet.user.nickname %>さんのつぶやき
-  </h3>
-  <h4><%= attachment_image_tag @tweet.user, :icon_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %></h4>
-<% else %>
-  <h3>あなたのつぶやき</h3>
-<% end %>
-<%= @tweet.text%>
-
-<h3><%= @tweet.user.nickname%>さんへのリプライ</h3>
-<% @tweet.replies.reverse_each do |reply| %>
+<div class="container">
+	<div class="row">
+		<% if current_user != @tweet.user %>
+		  <h2>
+		  	<%= @tweet.user.nickname %>さんのつぶやき
+		  </h2>
+		  <h4><%= attachment_image_tag @tweet.user, :icon_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %></h4>
+		<% else %>
+		  <h2>あなたのつぶやき</h2>
+		<% end %>
+		<%= @tweet.text%>
+	</div>
+    
+    <div class="row">
+    	<% if current_user =! @tweet.user %>
+			<h3><%= @tweet.user.nickname%>さんへのリプライ</h3>
+		<% else %>
+			<h3>あなたへのリプライ</h3>
+		<% end %>
+		<% @tweet.replies.reverse_each do |reply| %>
 			<li class="reply">
 				<div class="reply-body bb">
 					<div class="reply-text">
@@ -34,12 +41,15 @@
 				</div>
 			</li>
 		<% end %>
+	</div>s
 
-<%= form_for [@tweet, @reply] do |f| %>
-	  <div class="row">
-	  	<div class="col-sm-12">
-	  		<%= f.text_area :text, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
-	  	</div>
-	  </div>
-	  <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
-<% end %>
+
+	<%= form_for [@tweet, @reply] do |f| %>
+		  <div class="row">
+		  	<div class="col-sm-12">
+		  		<%= f.text_area :text, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
+		  	</div>
+		  </div>
+		  <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+	<% end %>
+</div>

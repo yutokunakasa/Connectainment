@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   attachment :icon_image
-  has_many :movies, dependent: :destroy
+  has_many :movies
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   
@@ -16,6 +16,8 @@ class User < ApplicationRecord
 
   has_many :tweets
   has_many :replies
+
+  acts_as_paranoid
 
   def following?(other_user)
   	following_relationships.find_by(following_id: other_user.id)

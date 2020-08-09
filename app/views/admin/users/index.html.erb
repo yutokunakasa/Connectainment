@@ -1,0 +1,37 @@
+<div class="container">
+	<div class="row">
+		<h1>ユーザー一覧</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th></th>
+					<th>名前</th>
+					<th>ユーザーID</th>
+					<th>登録日</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @users.reverse_each do |f| %>
+				<tr>
+					<td><%= attachment_image_tag f, :icon_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %></td>
+					<td><%= link_to f.nickname, admin_user_path(f) %></td>
+					<td>
+						<%= link_to f.id, user_path(f) %>
+					</td>
+					<td><%= f.created_at %></td>
+					<td>
+		        		<% if f.deleted_at.nil? %>
+		        			<p>有効</p>
+		        			<%= link_to "退会", admin_user_path(f.id), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn btn-danger pull-right "%></td>
+		                <% else %>
+		        			<p>退会済み</p>
+		        		<% end %>
+		            </td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<h3><%= link_to "戻る", user_path(current_user)%></h3>
+	</div>
+</div>

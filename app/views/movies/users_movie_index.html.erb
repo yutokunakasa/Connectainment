@@ -1,23 +1,27 @@
-<h1>紹介動画一覧</h1>
-<table>
-	<thead>
-		<tr>
-			<th>タイトル</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		<% @movies.reverse_each do |f| %>
-		<tr>
-			<td><%= link_to f.title, movie_path(f) %></td>
-		</tr>
-		<tr>
-			<td>
-				<%= link_to image_tag("https://img.youtube.com/vi/#{f.movie_url_id}/hqdefault.jpg"), movie_path(f) %>
-				<%= link_to "削除", movie_path(f), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn btn-danger pull-right "%>
-			</td>
-		</tr>
-		<% end %>
-	</tbody>
-</table>
-<%=link_to "戻る", user_path(current_user) %>
+<div class="container">
+	<div class="row">
+		<h1>紹介動画一覧</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>タイトル</th>
+					<th>紹介コメント</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @movies.reverse_each do |f| %>
+					<tr>
+						<td><%= link_to f.title, movie_path(f) %></td>
+						<td><%= f.introducer_comment%></td>
+						<td>
+							<%= link_to image_tag("https://img.youtube.com/vi/#{f.movie_url_id}/mqdefault.jpg"), movie_path(f) %>
+							<%= link_to "削除", movie_path(f), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn btn-danger pull-right "%>
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<%=link_to "戻る", user_path(current_user) %>
+    </div>
+</div>

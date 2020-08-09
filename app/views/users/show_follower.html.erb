@@ -1,9 +1,18 @@
-<h2>followers</h2>
-<% @user.followers.each do |user| %>
-<table>
-	<tr>
-		<td><%= user.nickname%></td>
-		<td><%= link_to '詳細', user_path(user)%></td>
-	</tr>
-</table>
-<% end %>
+<div class="container">
+	<div class="row">
+		<h2>followers</h2>
+		<table class="table">
+			<% @user.followers.each do |user| %>
+				<tbody>
+					<tr>
+						<td></td>
+						<td></td>
+						<td><%=link_to attachment_image_tag user , :icon_image, :fill, 50, 50, format: 'jpeg', fallback: "no_image.jpg" %></td>
+						<td><%= link_to user.nickname, user_path(user)%></td>
+						<td></td>
+					</tr>
+				</tbody>
+			<% end %>
+		</table>
+    </div>
+</div>

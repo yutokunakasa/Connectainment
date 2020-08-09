@@ -1,17 +1,29 @@
-<h1>共有動画登録ページ</h1>
-<h3>動画登録</h3>
-<%= form_for @movie do |f| %>
-	<%= f.label :動画タイトル %>
-	<%= f.text_field :title %>
+<div class="container">
+	<div class="row">
+		<h1>共有動画登録ページ</h1>
+		<h3>動画登録</h3>
+		<%= form_for @movie do |f| %>
+			<div>
+				<%= f.label :動画タイトル %>
+				<%= f.text_field :title,  rows:'5', class: "form-control",placeholder: "タイトルをここに"%>
+			</div>
 
-	<%= f.label :動画url %>
-	<%= f.text_field :movie_url_id %>
+			<div>
+				<%= f.label :動画url %>
+				<%= f.text_field :movie_url_id %>
+			</div>
 
-	<%= f.label :概要欄 %>
-	<%= f.text_field :introduction %>
+	        <div>
+				<%= f.label :概要欄 %>
+				<%= f.text_field :introduction,  rows:'5', class: "form-control",placeholder: "概要をここに" %>
+			</div>
+	        
+	        <div>
+				<%= f.label :紹介者コメント %>
+				<%= f.text_field :introducer_comment,  rows:'5', class: "form-control",placeholder: "コメントをここに" %>
+			</div>
 
-	<%= f.label :紹介者コメント %>
-	<%= f.text_field :introducer_comment %>
-
-	<%= f.submit "共有する" %>
-<% end %>
+			<%= f.submit "共有する" %>
+		<% end %>
+    </div>
+</div>

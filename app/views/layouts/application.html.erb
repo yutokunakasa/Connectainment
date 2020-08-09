@@ -11,32 +11,47 @@
 
   <body>
     <header>
-      <% if user_signed_in? %>
-      <li>
-        <%= search_form_for @search do |f|%>
-          <%= f.search_field :title_cont, class: 'search', placeholder: '動画を検索' %>
-          <%= f.submit "検索" %>
+      <nav class="navbar navbar-light">
+    　<ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+          <%if current_user.admin? %>
+            <li class="search">
+              <%= search_form_for @search do |f| %>
+                <%= f.search_field :title_cont,  placeholder: '動画を検索' %>
+                <%= f.submit "検索" %>
+              <% end %>
+            </li>
+            <li><%= link_to '管理者ページ', user_path(current_user.id) %></li>
+            <li><%= link_to 'コンテンツ', movies_path %></li>
+            <li><%= link_to 'ログアウト' , destroy_user_session_path, method: :delete %></li>
+          <% else %>
+            <li class="search">
+              <%= search_form_for @search do |f| %>
+                <%= f.search_field :title_cont, placeholder: '動画を検索' %>
+                <%= f.submit "検索" %>
+              <% end %>
+            </li>
+            <li><%= link_to 'top', root_path %></li>
+            <li><%= link_to 'マイページ', user_path(current_user.id) %></li>
+            <li><%= link_to 'コンテンツ', movies_path %></li>
+            <li><%= link_to 'お友達の共有動画', user_following_user_movies_path(current_user.id) %></li>
+            <li><%= link_to 'ツイート', tweets_path %></li>
+            <li><%= link_to 'ログアウト' , destroy_user_session_path, method: :delete %></li>
+          <% end %>
+        <% else %>
+            <li class="search">
+              <%= search_form_for @search do |f|%>
+                <%= f.search_field :title_cont,  placeholder: '動画を検索' %>
+                <%= f.submit "検索" %>
+              <% end %>
+            </li>
+            <li><%= link_to 'top', root_path %></li>
+            <li><%= link_to 'about', about_path %></li>
+            <li><%= link_to 'コンテンツ', movies_path %></li>
+            <li><%= link_to '新規登録', new_user_registration_path %></li>
+            <li><%= link_to 'ログイン', new_user_session_path%></li>
         <% end %>
-      </li>
-      <li><%= link_to 'top', root_path %></li>
-      <li><%= link_to 'マイページ', user_path(current_user.id) %></li>
-      <li><%= link_to 'コンテンツ', movies_path %></li>
-      <li><%= link_to 'お友達の共有動画', user_following_user_movies_path(current_user.id) %></li>
-      <li><%= link_to 'ツイート', tweets_path %></li>
-      <li><%= link_to 'ログアウト' , destroy_user_session_path, method: :delete %></li>
-      <% else %>
-      <li>
-        <%= search_form_for @search do |f|%>
-          <%= f.search_field :title_cont, class: 'search', placeholder: '動画を検索' %>
-          <%= f.submit "検索" %>
-        <% end %>
-      </li>
-      <li><%= link_to 'top', root_path %></li>
-      <li><%= link_to 'about', about_path %></li>
-      <li><%= link_to 'コンテンツ'%></li>
-      <li><%= link_to '新規登録', new_user_registration_path %></li>
-      <li><%= link_to 'ログイン', new_user_session_path%></li>
-      <% end %>
+      </ul>
     </header>
     <%= yield %>
   </body>

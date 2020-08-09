@@ -1,21 +1,31 @@
-<h1><%= @user.nickname %> さんのお気に入り動画　</h1>
-  <table>
-	<thead>
-		<tr>
-			<th>タイトル</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		<% @favorites.each do |f| %>
-		<tr>
-			<td><%= link_to f.movie.title, movie_path(f.movie_id) %></td>
-			<td>
-				<td>
-				<%= link_to image_tag("https://img.youtube.com/vi/#{f.movie.movie_url_id}/hqdefault.jpg"), movie_path(f.movie_id) %>
-			</td>
-			</td>
-		</tr>
+<div class="container">
+	<div class="row">
+		<% if current_user != @user %>
+			<h1><%= @user.nickname %> さんのお気に入り動画　</h1>
+		<% else %>
+		    <h1>あなたのお気に入り一覧</h1>
 		<% end %>
-	</tbody>
-</table>
+		  <table class="table">
+			<thead>
+				<tr>
+					<th>タイトル</th>
+					<th>紹介者コメント</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @favorites.each do |f| %>
+				<tr>
+					<td><%= link_to f.movie.title, movie_path(f.movie_id) %></td>
+					<td><%= f.movie.introducer_comment%></td>
+					<td>
+						<td>
+						<%= link_to image_tag("https://img.youtube.com/vi/#{f.movie.movie_url_id}/mqdefault.jpg"), movie_path(f.movie_id) %>
+					</td>
+					</td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<%=link_to "戻る", user_path(current_user) %>
+    </div>
+</div>

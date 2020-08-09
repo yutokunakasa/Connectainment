@@ -1,0 +1,19 @@
+<h1>ユーザー登録情報</h1>
+<table>
+		<tr>
+			<%= attachment_image_tag @user, :icon_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+			<th>ニックネーム</th>
+			<td><%= @user.nickname %></td>
+		</tr>
+		<tr>
+			<th>自己紹介</th>
+			<td><%= @user.introduction%></td>
+		</tr>
+		<tr>
+			<th>email</th>
+			<td><%= @user.email %></td>
+		</tr>
+</table>
+<%= link_to "紹介した動画", user_users_movie_index_path(@user.id) %>
+<%= link_to "お気に入り動画", user_users_movie_favorites_path(@user.id) %>
+<%= link_to "つぶやき", user_user_tweets_path(@user.id)%>

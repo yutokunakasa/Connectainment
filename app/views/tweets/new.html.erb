@@ -1,6 +1,17 @@
-<h1>tweetページ</h1>
-<%= form_for @tweet do |f| %>
-    <%= f.label :tweet %>
-	<%= f.text_field :text %>
-    <%= f.submit "つぶやく" %>
-<% end %>
+<div class="container">
+	<%= form_for @tweet do |f| %>
+		<div class="row">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-6">
+			    <%= f.label :tweet %>
+				<%= f.text_area :text, rows:'5', class: "form-control",placeholder: "あなたのつぶやきをここに" %>
+		    </div>
+		</div>
+		<div class="row">
+			<div class="col-sm-3"></div>
+			<div>
+			    <%= f.submit "つぶやく", class: "btn btn-lg btn-base-1 mt-20 pull-left" %>
+			</div>
+		</div>
+	<% end %>
+</div>

@@ -1,4 +1,5 @@
 class RepliesController < ApplicationController
+	before_action :authenticate_user!
 	def create
 		@tweet = Tweet.find(params[:tweet_id])
 		@reply = current_user.replies.new(reply_params)

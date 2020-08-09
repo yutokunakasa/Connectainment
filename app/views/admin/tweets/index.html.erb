@@ -1,0 +1,29 @@
+<div class="container">
+	<div class="row">
+		<h1>ツイート全件</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @tweets.reverse_each do |f| %>
+				<tr>
+					<td><%= link_to attachment_image_tag f.user , :icon_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %></td>
+					<td><%= f.created_at.strftime('%Y/%m/%d/%H:%M') %></td>
+					<td><%= f.user.nickname %></td>
+					<td><%= f.text %></td>
+					<td><%= link_to "リプライを送る", tweet_path(f)%></td>
+					<td><%= link_to "削除", admin_tweet_path(f), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn btn-danger pull-right "%></td>
+				</tr>
+				<% end %>
+		</table>
+		<%= paginate @tweets %>
+	</div>
+</div>

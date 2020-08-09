@@ -1,4 +1,5 @@
 class MoviesController < ApplicationController
+    before_action :authenticate_user!, only: [:show, :update]
 	before_action :correct_user, only: [:edit, :update]
 
 	def new
@@ -23,26 +24,31 @@ class MoviesController < ApplicationController
 
     def index
     	@search = Movie.ransack(params[:q])
-    	@movies = @search.result
+    	@movies = @search.result.page(params[:page]).per(20)
     end
 
     def users_movie_index
     	@user = User.find(params[:user_id])
-    	@movies = Movie.where(user_id: @user.id)
+    	@movies = Movie.where(user_id: @user.id).order(create_at: :desc).page(params[:page]).per(10)
     end
 
     def following_user_movies
     	@user = User.find(current_user.id)
-    	@users = @user.followings
-    	@movies = []
-    	if @users.present?
-    		@users.each do |user|
-    			following_user_movies = Movie.where(user_id: user.id)
-    			@movies.concat(following_user_movies)
-    		end
-            current_user_movies = Movie.where(user_id: current_user.id)
-            @movies.concat(current_user_movies)
-    	end
+        @movie_all = Movie.includes(:user)
+        @following_users = @user.followings
+        @movies = @movie_all.where(user_id: @following_users).order(create_at: :desc).page(params[:page]).per(10)
+        	# @users = @user.followings
+        	# @movies =[]
+        	# if @users.present?
+        	# 	@users.each do |user|
+        	# 		following_user_movies = Movie.where(user_id: user.id)
+        	# 		@movies.concat(following_user_movies)
+        	# 	end
+         #        current_user_movies = Movie.where(user_id: current_user.id)
+         #        @movies.concat(current_user_movies)
+        	# end
+         #    @movies = Kaminari.paginate_array(@movies).page(params[:page]).per(4)
+         # 学習のため、一応コメントアウトで残してあります
     end
 
     def edit
