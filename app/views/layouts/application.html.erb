@@ -12,7 +12,7 @@
   <body>
     <header>
       <nav class="navbar navbar-light">
-    　<ul class="nav navbar-nav navbar-right">
+    　<ul class="nav navbar-nav navbar-left">
         <% if user_signed_in? %>
           <%if current_user.admin? %>
             <li class="search">
@@ -21,6 +21,11 @@
                 <%= f.submit "検索" %>
               <% end %>
             </li>
+            <li>
+              <%= link_to root_path do %>
+                <%= image_tag "logo.png",  width: "80px", height:"50px"%>
+              <% end %>
+           </li>
             <li><%= link_to '管理者ページ', user_path(current_user.id) %></li>
             <li><%= link_to 'コンテンツ', movies_path %></li>
             <li><%= link_to 'ログアウト' , destroy_user_session_path, method: :delete %></li>
@@ -31,11 +36,15 @@
                 <%= f.submit "検索" %>
               <% end %>
             </li>
-            <li><%= link_to 'top', root_path %></li>
+            <li>
+              <%= link_to root_path do %>
+                <%= image_tag "logo.png",  width: "80px", height:"50px"%>
+              <% end %>
+            </li>
             <li><%= link_to 'マイページ', user_path(current_user.id) %></li>
             <li><%= link_to 'コンテンツ', movies_path %></li>
             <li><%= link_to 'お友達の共有動画', user_following_user_movies_path(current_user.id) %></li>
-            <li><%= link_to 'ツイート', tweets_path %></li>
+            <li><%= link_to 'コミュニケーション', tweets_path %></li>
             <li><%= link_to 'ログアウト' , destroy_user_session_path, method: :delete %></li>
           <% end %>
         <% else %>
@@ -45,7 +54,12 @@
                 <%= f.submit "検索" %>
               <% end %>
             </li>
-            <li><%= link_to 'top', root_path %></li>
+            <li>
+              <%= link_to root_path do %>
+                <%= image_tag "logo.png",  width: "80px", height:"50px"%>
+              <% end %>
+  
+            </li>
             <li><%= link_to 'about', about_path %></li>
             <li><%= link_to 'コンテンツ', movies_path %></li>
             <li><%= link_to '新規登録', new_user_registration_path %></li>

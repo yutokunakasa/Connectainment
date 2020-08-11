@@ -5,7 +5,7 @@ class TweetsController < ApplicationController
 		@user = current_user
 		@tweet_all = Tweet.includes(:user)
 		@users = @user.followings
-		@tweets = @tweet_all.where(user_id: @users).order(created_at: :desc).page(params[:page]).per(20)
+		@tweets = @tweet_all.where(user_id: @users).or(@tweet_all.where(user_id: @user)).order(created_at: :desc).page(params[:page]).per(20)
 
 		# @tweets = []
 		# if @users.present?
@@ -44,19 +44,25 @@ class TweetsController < ApplicationController
 		if @tweet.update(tweet_params)
 			redirect_to tweets_path
 		else
-			redirect_to new_tweet_path
+	    @user = current_user
+		@tweet_all = Tweet.includes(:user)
+		@users = @user.followings
+		@tweets = @tweet_all.where(user_id: @users).order(created_at: :desc).page(params[:page]).per(20)
+	    render 'index'
 		end
 	end
 
 	def destroy
 		@tweet = Tweet.find(params[:id])
     	@tweet.destroy
+    	if @tweet.destroy
+    	flash[:notice] = "つぶやきを削除しました"
     	redirect_to user_user_tweets_path(current_user)
+        end
 	end
 
 	private
 	def tweet_params
 		params.require(:tweet).permit(:text, :user_id)
 	end
-
 end

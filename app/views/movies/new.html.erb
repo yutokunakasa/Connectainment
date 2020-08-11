@@ -1,4 +1,13 @@
 <div class="container">
+  <% if @movie.errors.any? %>
+	  <div id="error_explanation" class="alert alert-danger">
+	    <ul>
+	      <% @movie.errors.full_messages.each do |message| %>
+	        <li><%= message %></li>
+	      <% end %>
+	    </ul>
+	  </div>
+  <% end %>
 	<div class="row">
 		<h1>共有動画登録ページ</h1>
 		<h3>動画登録</h3>
@@ -15,12 +24,12 @@
 
 	        <div>
 				<%= f.label :概要欄 %>
-				<%= f.text_field :introduction,  rows:'5', class: "form-control",placeholder: "概要をここに" %>
+				<%= f.text_area :introduction,  rows:'5', class: "form-control",placeholder: "概要をここに" %>
 			</div>
 	        
 	        <div>
 				<%= f.label :紹介者コメント %>
-				<%= f.text_field :introducer_comment,  rows:'5', class: "form-control",placeholder: "コメントをここに" %>
+				<%= f.text_area :introducer_comment,  rows:'5', class: "form-control",placeholder: "コメントをここに" %>
 			</div>
 
 			<%= f.submit "共有する" %>

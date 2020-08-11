@@ -1,9 +1,29 @@
 <div class="container">
 	<div class="row">
 		<div class="col-3"></div>
-		<h2>information</h2>
+		<h2 class="information">information</h2>
 		<div class="information-box col-6 bg">
-			<div class=""><%=%></div>
+			<div class="">
+				<table class="table">
+					<thead>
+						<tr>
+							<td>更新日</td>
+							<td>お知らせ</td>
+						</tr>
+					</thead>
+					<tbody>
+						<% @informations.each do |f| %>
+						<tr>
+							<td><%= f.created_at.strftime('%Y/%m/%d/%H:%M') %></td>
+							<td>
+							    <%= f.text %>
+							</td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+				<%= paginate @informations %>
+			</div>
 		</div>
 		<div class="col-3"></div>
 	</div>
@@ -23,7 +43,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-10"></div>
+		<div class="col-lg-5"></div>
 		<div>
 			<%= link_to 'もっと見る>', movies_path, class:"more-btn more" %>
 		</div>

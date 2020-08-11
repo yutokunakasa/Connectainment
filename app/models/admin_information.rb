@@ -1,0 +1,2 @@
+class AdminInformation < ApplicationRecord
+end

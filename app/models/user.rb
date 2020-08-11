@@ -17,6 +17,10 @@ class User < ApplicationRecord
   has_many :tweets
   has_many :replies
 
+  validates :firstname, presence: true
+  validates :lastname, presence: true
+  validates :nickname, presence: true
+
   acts_as_paranoid
 
   def following?(other_user)

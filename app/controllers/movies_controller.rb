@@ -10,10 +10,11 @@ class MoviesController < ApplicationController
 		@movie = Movie.new
 		@movie.user_id = current_user.id
 		@movie.save
-		if @movie.update(movie_params)
+        if @movie.update(movie_params)
+            flash[:notice] = "動画を共有しました"
 			redirect_to movie_path(@movie.id)
 		else
-			render new_movie_path
+			render 'new'
 		end
 	end
 
@@ -24,19 +25,19 @@ class MoviesController < ApplicationController
 
     def index
     	@search = Movie.ransack(params[:q])
-    	@movies = @search.result.page(params[:page]).per(20)
+    	@movies = @search.result.order(created_at: :desc).page(params[:page]).per(20)
     end
 
     def users_movie_index
     	@user = User.find(params[:user_id])
-    	@movies = Movie.where(user_id: @user.id).order(create_at: :desc).page(params[:page]).per(10)
+    	@movies = Movie.where(user_id: @user.id).order(created_at: :desc).page(params[:page]).per(10)
     end
 
     def following_user_movies
-    	@user = User.find(current_user.id)
+    	@user = current_user
         @movie_all = Movie.includes(:user)
         @following_users = @user.followings
-        @movies = @movie_all.where(user_id: @following_users).order(create_at: :desc).page(params[:page]).per(10)
+        @movies = @movie_all.where(user_id: @following_users).order(created_at: :desc).page(params[:page]).per(10)
         	# @users = @user.followings
         	# @movies =[]
         	# if @users.present?
@@ -67,7 +68,10 @@ class MoviesController < ApplicationController
     def destroy
     	@movie = Movie.find(params[:id])
     	@movie.destroy
+        if @movie.destroy
+        flash[:destroy] = "動画を削除しました"
     	redirect_to user_users_movie_index_path(current_user)
+        end
     end
 
 	private

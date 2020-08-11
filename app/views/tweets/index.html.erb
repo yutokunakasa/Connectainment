@@ -1,4 +1,13 @@
 <div class="container">
+	<% if @tweet.errors.any? %>
+	  <div id="error_explanation" class="alert alert-danger">
+	    <ul>
+	      <% @tweet.errors.full_messages.each do |message| %>
+	        <li><%= message %></li>
+	      <% end %>
+	    </ul>
+	  </div>
+  <% end %>
 	<div class="row">
 		<h1>フォローしている人のつぶやき</h1>
 		<%= form_for @tweet do |f| %>
@@ -32,7 +41,7 @@
 				<tr>
 					<td><%= link_to attachment_image_tag f.user , :icon_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %></td>
 					<td><%= f.created_at.strftime('%Y/%m/%d/%H:%M')%></td>
-					<td><%= link_to f.user.nickname, user_path(f) %></td>
+					<td><%= link_to f.user.nickname, user_path(f.user.id) %></td>
 					<td><%= f.text %></td>
 					<td><%= link_to "リプライを送る", tweet_path(f)%></td>
 				</tr>

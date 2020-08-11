@@ -10,7 +10,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% @movies.reverse_each do |f| %>
+				<% @movies.each do |f| %>
 				<tr>
 					<td><%= link_to f.title, movie_path(f) %></td>
 					<td><%= f.introducer_comment %></td>

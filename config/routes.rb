@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get "following_user_movies" => "movies#following_user_movies"
     get "user_tweets" => "tweets#user_tweets"
     get "admin/users" => "admin/users#index"
+    get "admin/tweets" => "admin/tweets#index"
     member do
       get :following, :followers
     end
@@ -25,7 +26,7 @@ Rails.application.routes.draw do
     resources :tweets
   end
 
-  resources :informations
+  resources :admin_informations
 
   get "top" => "homes#top"
   get "about" => "homes#about"
