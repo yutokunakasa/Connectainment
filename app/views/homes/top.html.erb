@@ -12,13 +12,15 @@
 						</tr>
 					</thead>
 					<tbody>
-						<% @informations.each do |f| %>
-						<tr>
-							<td><%= f.created_at.strftime('%Y/%m/%d/%H:%M') %></td>
-							<td>
-							    <%= f.text %>
-							</td>
-						</tr>
+						<% if @informations.persent? %>
+							<% @informations.each do |f| %>
+							<tr>
+								<td><%= f.created_at.strftime('%Y/%m/%d/%H:%M') %></td>
+								<td>
+								    <%= f.text %>
+								</td>
+							</tr>
+							<% end %>
 						<% end %>
 					</tbody>
 				</table>
