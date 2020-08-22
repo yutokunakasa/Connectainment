@@ -78,6 +78,7 @@
 							</div>
 							<div class="comment-entry">
 								<%= post_comment.comment %>
+								<div><%= post_comment&.score %></div>
 							</div>
 							<% if post_comment.user == current_user %>
 							  <div>

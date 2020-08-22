@@ -1,0 +1,22 @@
+<div class="container">
+	<div class="row">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>タイトル</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+			<% @ranking.each do |f| %>
+				<tr>
+					<td><%= link_to f.title, movie_path(f) %></td>
+					<td><%= link_to image_tag("http://img.youtube.com/vi/#{f.movie_url_id}/mqdefault.jpg"), movie_path(f) %></td>
+					<td><%= f.favorites.count %>いいね</td>
+				</tr>
+			<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>

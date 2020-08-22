@@ -52,6 +52,10 @@ class MoviesController < ApplicationController
          # 学習のため、一応コメントアウトで残してあります
     end
 
+    def ranking
+        @ranking = Movie.find(Favorite.group(:movie_id).order('count(movie_id) desc').limit(10).pluck(:movie_id))
+    end
+
     def edit
     	@movie = Movie.find(params[:id])
     end
