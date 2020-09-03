@@ -45,7 +45,7 @@
             <li><%= link_to 'コンテンツ', movies_path %></li>
             <li><%= link_to 'お友達の共有動画', user_following_user_movies_path(current_user.id) %></li>
             <li><%= link_to 'コミュニケーション', tweets_path %></li>
-            <li><%= link_to 'ログアウト' , destroy_user_session_path, method: :delete %></li>
+            <li><%= link_to 'ログアウト' , destroy_user_session_path, method: :delete, data: {confirm: "ログアウトしますか？"} %></li>
           <% end %>
         <% else %>
             <li class="search">

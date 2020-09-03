@@ -12,3 +12,10 @@ class Movie < ApplicationRecord
 		favorites.where(user_id: user.id).exists?
 	end
 end
+
+# class MoviesController < ApplicationController
+# 	def index
+# 		@movies = Movies.limit(10).sort_by { |movie| movie.sum_comments_score }
+# 	end
+# end
+# メンターさんから教えていただいた事項につきコメントアウトで一時的に残してあります。
