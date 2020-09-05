@@ -10,7 +10,7 @@
   </head>
 
   <body>
-    <header>
+    <!-- <header>
       <nav class="navbar navbar-light">
     　<ul class="nav navbar-nav navbar-left">
         <% if user_signed_in? %>
@@ -58,7 +58,6 @@
               <%= link_to root_path do %>
                 <%= image_tag "logo.png",  width: "80px", height:"50px"%>
               <% end %>
-  
             </li>
             <li><%= link_to 'about', about_path %></li>
             <li><%= link_to 'コンテンツ', movies_path %></li>
@@ -66,6 +65,66 @@
             <li><%= link_to 'ログイン', new_user_session_path%></li>
         <% end %>
       </ul>
+    </header> -->
+    <header>
+      <nav class="navbar">
+        <ul class="nav navbar-nav">
+          <li class="logo">
+            <%= link_to root_path do %>
+              <%= image_tag "logo.png",  width: "80px", height:"50px"%>
+            <% end %>
+          </li>
+
+          <li class="search">
+                <%= search_form_for @search do |f| %>
+                  <%= f.search_field :title_cont,  placeholder: '動画を検索' %>
+                  <%= f.submit "検索" %>
+                <% end %>
+          </li>
+
+          <% if user_signed_in? %>
+            <li class="session-path"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, data:{confirm: "ログアウトしますか？"}%></li>
+          <% else %>
+            <li class="session-path"><%= link_to 'ログイン', new_user_session_path%></li>
+          <% end %>
+
+          <div id="sp-menu">
+            <h2>MENU</h2>
+            <% if user_signed_in? %>
+              <% if current_user.admin? %>
+                <ul>
+                  <li><%= link_to '管理者ページ', user_path(current_user) %></li>
+                  <li><%= link_to '共有コンテンツ', movies_path %></li>
+                  <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, data: {confirm: "ログアウトしますか？"}%></li>
+                </ul>
+              <% else %>
+                <ul>
+                  <li><%= link_to 'マイページ', user_path(current_user) %></li>
+                  <li><%= link_to '共有コンテンツ', movies_path %></li>
+                  <li><%= link_to 'お友達の共有動画', user_following_user_movies_path(current_user.id) %></li>
+                  <li><%= link_to 'コミュニケーション', tweets_path %></li>
+                  <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, data: {confirm: "ログアウトしますか？"} %></li>
+                </ul>
+              <% end %>
+            <% else %>
+              <ul>
+                <li><%= link_to 'about', about_path %></li>
+                <li><%= link_to '共有コンテンツ', movies_path %></li>
+                <li><%= link_to '新規登録', new_user_registration_path %></li>
+                <li><%= link_to 'ログイン', new_user_session_path %></li>
+              </ul>
+            <% end %>
+          </div>
+
+          <div id="hm-icon">
+            <div class="menu-trigger">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </ul>
+      </nav>
     </header>
     <%= yield %>
   </body>
