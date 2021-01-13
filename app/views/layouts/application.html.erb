@@ -82,11 +82,11 @@
                 <% end %>
           </li>
 
-          <% if user_signed_in? %>
+         <!--  <% if user_signed_in? %>
             <li class="session-path"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, data:{confirm: "ログアウトしますか？"}%></li>
           <% else %>
             <li class="session-path"><%= link_to 'ログイン', new_user_session_path%></li>
-          <% end %>
+          <% end %> -->
 
           <div id="sp-menu">
             <h2>MENU</h2>
