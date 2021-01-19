@@ -9,10 +9,8 @@
 			  <%= link_to "ツイート一覧", admin_tweets_path %>
 			  <%= link_to "お知らせ一覧", admin_informations_path %>
 			<% else %>
-			  <h3>登録情報</h3>
+			  <h3>ログインユーザー<br>: <%= @user.nickname %>さん</h3>
 				<%= attachment_image_tag @user, :icon_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
-				<h4>ニックネーム</h4>
-				<%= @user.nickname %>
 				<div class="usermenu">
 					<%= render 'follow_form' %>
 					<%= render 'stats' %>
